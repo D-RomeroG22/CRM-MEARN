@@ -99,6 +99,13 @@ const PROTECT = [
   }
 ];
 
+/**
+ * Notas:
+ * 
+ A mejorar:
+ 1. ...
+ */
+
 function App() {
   return (
     <Routes>
