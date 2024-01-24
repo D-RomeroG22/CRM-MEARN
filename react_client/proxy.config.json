@@ -1,0 +1,14 @@
+{
+  "/crm/*": {
+    "target": "127.0.0.1:5000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/uploads/*": {
+    "target": "127.0.0.1:5000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
