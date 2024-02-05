@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { UserInterface } from "../../../shared/interfaces/auth.interface";
 import { AuthService } from "../../../shared/services/auth/auth.service";
 import { AuthFormComponent } from "../../../shared/components/auth-form/component/auth-form.component";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { RouterPathsEnum } from "../../../shared/enums/routerPaths.enum";
 import { MaterialService } from "../../../shared/classes/material.service";
@@ -14,7 +14,6 @@ import { MaterialService } from "../../../shared/classes/material.service";
 })
 export class LoginComponent implements OnInit, OnDestroy {
       loginSubscription!: Subscription;
-      routeSubscription!: Subscription;
       @ViewChild("form") crmAuthForm!: AuthFormComponent;
 
       constructor(
@@ -66,24 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             if (this.loginSubscription) {
                   this.loginSubscription.unsubscribe();
             }
-            this.routeSubscription.unsubscribe();
       }
 
-      ngOnInit(): void {
-            this.routeSubscription = this.route.queryParams.subscribe(
-                  (params: Params) => {
-                        this.handleQueryParams(params);
-                  },
-            );
-      }
-
-      handleQueryParams(params: Params) {
-            if (params["registered"]) {
-                  this.materialService.toast("You can log in with your own credentials.");
-            } else if (params["accessDenied"]) {
-                  this.materialService.toast("To get started, log in to the system.");
-            } else if (params["sessionFailed"]) {
-                  this.materialService.toast("Your session has ended, please log in again.");
-            }
-      }
+      ngOnInit(): void { }
 }

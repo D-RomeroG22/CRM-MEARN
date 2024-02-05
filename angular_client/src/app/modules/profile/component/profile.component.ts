@@ -25,9 +25,7 @@ export class ProfileComponent implements OnDestroy {
             .updateProfile($event)
             .subscribe(
                 () => {
-                    this.router.navigate([RouterPathsEnum.PROFILE], {
-                        queryParams: { registered: true },
-                    });
+                    this.router.navigate([RouterPathsEnum.PROFILE]);
                     this.materialService.toast('Información personal actualizada!');
                 },
                 (err: any) => {

@@ -3,8 +3,7 @@ import OrderCategories from './OrderCategories'; // Importa el componente OrderC
 import OrderOptions from './OrderOptions';
 import OrderService from '../../api/services/OrderService';
 import AuthService from '../../api/services/AuthService';
-import 'materialize-css/dist/css/materialize.min.css';
-import M from 'materialize-css/dist/js/materialize.min.js';
+import MaterialService from '../../api/services/MaterialService';
 import { Link } from 'react-router-dom';
 
 const Order = () => {
@@ -35,12 +34,12 @@ const Order = () => {
     }, []);
 
     const showModal = () => {
-        const modalInstance = M.Modal.init(modalRef.current);
+        const modalInstance = MaterialService.M.Modal.init(modalRef.current);
         modalInstance.open();
     };
 
     const closeModal = () => {
-        const modalInstance = M.Modal.init(modalRef.current);
+        const modalInstance = MaterialService.M.Modal.init(modalRef.current);
         modalInstance.close();
     };
 
@@ -51,7 +50,7 @@ const Order = () => {
             const currentUser = await AuthService.getCurrentUser();
 
             if (!currentUser || !currentUser._id) {
-                M.toast({ html: 'No user logged in!' });
+                MaterialService.M.toast({ html: 'No user logged in!' });
                 setPending(false);
                 return;
             }
@@ -74,12 +73,12 @@ const Order = () => {
 
             const createdOrder = await OrderService.createOrder(newOrder);
 
-            M.toast({ html: `Order №${createdOrder.order} was created!` });
+            MaterialService.M.toast({ html: `Order №${createdOrder.order} was created!` });
             OrderService.clear();
             setListToOrder(OrderService.list);
             closeModal();
         } catch (error) {
-            M.toast({ html: error.message });
+            MaterialService.M.toast({ html: error.message });
         } finally {
             setPending(false);
         }

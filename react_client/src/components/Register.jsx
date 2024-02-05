@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../api/services/AuthService";
 import { showToast } from "../utils/showToast";
 
-const USER_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const PWD_REGEX = /123456/;
+const USER_REGEX = /^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const PWD_REGEX = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ const Register = () => {
     }
     AuthService.register({ formData }).then((response) => {
       setSuccess(true);
-      showToast({msg: "You can log in with your own credentials.", isErr: false});
+      showToast({msg: "Puedes iniciar sesión con tus propias credenciales.", isErr: false});
       setFormData({
         name: "",
         surname: "",
@@ -57,8 +57,7 @@ const Register = () => {
       navigate('/login');
     })
       .catch((err) => {
-        console.log(err.response.data.message)
-        if (err.response?.data.message) {
+        if (err.response?.data?.message) {
           showToast({msg: err.response.data.message, isErr: true});
         } else {
           console.error(err)
@@ -80,7 +79,7 @@ const Register = () => {
       ) : (
         <>
           <AuthForm
-            title="Register"
+            title="Crear un usuario"
             ref={crmAuthForm}
             buttonTitle="CREAR"
             isRegistering={true}

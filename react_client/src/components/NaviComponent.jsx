@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import MaterialService from '../api/services/MaterialService';
 import { RouterPathsEnum } from '../api/enums/routerPaths.enum.tsx';
 import AuthService from '../api/services/AuthService';
 import { decodeToken } from 'react-jwt';
-import M from 'materialize-css';
 
 const NaviComponent = ({ children }) => {
     const routerPathsEnum = RouterPathsEnum;
@@ -28,7 +26,7 @@ const NaviComponent = ({ children }) => {
     const materialService = MaterialService;
 
     useEffect(() => {
-        M.FloatingActionButton.init(floatingRef.current);
+        MaterialService.M.FloatingActionButton.init(floatingRef.current);
 
         const token = localStorage.getItem('authToken');
         if ( token ) {
@@ -80,13 +78,12 @@ const NaviComponent = ({ children }) => {
                 {linksList.map((item) => (
                     <li
                         key={item.title}
-                        className="bold"
+                        className={(location.pathname.includes(item.path) ? "bold active" : "bold")}
                         style={{ display: item.display ? 'block' : 'none' }}
                     >
                         <Link
                             to={'/' + item.path}
-                            className={`waves-effect waves-orange ${location.pathname === item.path ? 'active' : ''
-                                }`}
+                            className={"waves-effect waves-orange"}
                         >
                             {item.title}
                         </Link>

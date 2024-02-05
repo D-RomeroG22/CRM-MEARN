@@ -41,27 +41,33 @@ export class AuthFormComponent implements OnInit {
             if (this.isUpdating) {
                   formControls['name'] = new FormControl(null, Validators.required);
                   formControls['surname'] = new FormControl(null, Validators.required);
-                  formControls['phone'] = new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+                  formControls['phone'] = new FormControl(null, [
+                        Validators.required,
+                        Validators.pattern(/^3\d{9}$/)
+                  ]);
             } else if (this.isRegistering) {
                   formControls['email'] = new FormControl(null, [
                         Validators.required,
-                        Validators.email,
+                        Validators.pattern(/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
                   ]);
                   formControls['password'] = new FormControl(null, [
                         Validators.required,
-                        Validators.minLength(this.requiredPasswordLength),
+                        Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}/)
                   ]);
                   formControls['name'] = new FormControl(null, Validators.required);
                   formControls['surname'] = new FormControl(null, Validators.required);
-                  formControls['phone'] = new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+                  formControls['phone'] = new FormControl(null, [
+                        Validators.required,
+                        Validators.pattern(/^3\d{9}$/)
+                  ]);
             } else {
                   formControls['email'] = new FormControl(null, [
                         Validators.required,
-                        Validators.email,
+                        Validators.pattern(/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
                   ]);
                   formControls['password'] = new FormControl(null, [
                         Validators.required,
-                        Validators.minLength(this.requiredPasswordLength),
+                        Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}/)
                   ]);
             }
 

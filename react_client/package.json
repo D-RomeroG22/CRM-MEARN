@@ -1,13 +1,12 @@
 {
   "name": "crm_coffee_react_client",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "axios": "^0.24.0",
-    "bootstrap": "^5.3.2",
     "chart.js": "^4.4.0",
     "jwt-decode": "^4.0.0",
     "materialize-css": "^1.0.0",

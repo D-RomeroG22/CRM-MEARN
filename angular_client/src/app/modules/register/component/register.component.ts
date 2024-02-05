@@ -26,9 +26,8 @@ export class RegisterComponent implements OnDestroy {
             .register($event)
             .subscribe(
                 () => {
-                    this.router.navigate([RouterPathsEnum.LOGIN], {
-                        queryParams: { registered: true },
-                    });
+                    this.router.navigate([RouterPathsEnum.LOGIN]);
+                    this.materialService.toast("Puedes iniciar sesión con tus propias credenciales.");
                 },
                 (err: any) => {
                     this.crmAuthForm.authForm.enable();

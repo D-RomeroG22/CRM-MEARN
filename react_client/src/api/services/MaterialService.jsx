@@ -1,4 +1,4 @@
-import M from 'materialize-css';
+import * as M from 'materialize-css';
 
 const MaterialService = () => {
 
@@ -57,6 +57,7 @@ const MaterialService = () => {
         initTooltip,
         initDatePicker,
         initTapTarget,
+        M,
     }
 
 }

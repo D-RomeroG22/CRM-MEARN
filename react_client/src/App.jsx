@@ -1,15 +1,9 @@
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Home from "./components/Home";
 import Layout from "./components/Layout";
-import Editor from "./components/Editor";
-import Admin from "./components/Admin";
 import Missing from "./components/Missing";
-import Unauthorized from "./components/Unauthorized";
-import Lounge from "./components/Lounge";
-import LinkPage from "./components/LinkPage";
 import RequireAuth from "./components/RequireAuth";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AuthBlock from "./components/AuthBlock";
 import NaviComponent from "./components/NaviComponent";
 import Overview from "./components/Overview";
@@ -41,14 +35,6 @@ const PUBLIC = [
   {
     path: 'register',
     component: <Register />
-  },
-  {
-    path: 'linkpage',
-    component: <LinkPage />
-  },
-  {
-    path: 'unauthorized',
-    component: <Unauthorized />
   }
 ];
 
@@ -98,13 +84,6 @@ const PROTECT = [
     component: <Profile />
   }
 ];
-
-/**
- * Notas:
- * 
- A mejorar:
- 1. ...
- */
 
 function App() {
   return (
