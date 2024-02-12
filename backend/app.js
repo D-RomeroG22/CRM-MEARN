@@ -32,7 +32,7 @@ mongoose
   .connect(
     process.env.NODE_ENV === "production"
       ? keys.mongoURI
-      : "mongodb://mongodb:27017/crm-coffee", { useNewUrlParser: true, useUnifiedTopology:true, serverSelectionTimeoutMS: 5000, dbName: 'crm-coffee' }
+      : "mongodb://localhost:27019/crm-coffee", { useNewUrlParser: true, useUnifiedTopology:true, serverSelectionTimeoutMS: 5000, dbName: 'crm-coffee' }
   )
   .then(() => console.info("MongoDB connected."))
   .catch((error) => console.error("MongoDB connection error:", error));
