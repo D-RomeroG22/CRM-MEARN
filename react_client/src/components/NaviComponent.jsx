@@ -83,7 +83,7 @@ const NaviComponent = ({ children }) => {
                     >
                         <Link
                             to={'/' + item.path}
-                            className={"waves-effect waves-orange"}
+                            className={"waves-effect waves-react"}
                         >
                             {item.title}
                         </Link>
@@ -93,7 +93,7 @@ const NaviComponent = ({ children }) => {
                     <Link
                         to={'/login'}
                         onClick={logout}
-                        className="waves-effect waves-orange">
+                        className="waves-effect waves-react">
                         Cerrar Sesión
                     </Link>
                 </li>

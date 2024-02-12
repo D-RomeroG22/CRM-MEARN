@@ -10,6 +10,7 @@ const Order = () => {
     const [isRoot, setIsRoot] = useState(false);
     const [pending, setPending] = useState(false);
     const [listToOrder, setListToOrder] = useState([]);
+    const [optionSelected, setOptionSelected] = useState("");
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -102,7 +103,11 @@ const Order = () => {
                 </button>
             </div>
 
-            <OrderCategories />
+            {
+                optionSelected === ""
+                    ? <OrderCategories setOptionSelected={setOptionSelected} />
+                    : <OrderOptions optionSelected={optionSelected} />
+            }
 
             <div ref={modalRef} className="modal modal-fixed-footer">
                 <div className="modal-content">
