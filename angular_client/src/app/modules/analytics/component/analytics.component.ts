@@ -55,7 +55,7 @@ export class AnalyticsComponent implements AfterViewInit, OnDestroy {
                         const orderDataset = {
                               label: "Pedidos",
                               data: orders,
-                              borderColor: "#26a69a",
+                              borderColor: "#ef5350",
                               fill: false,
                               tension: 0.1,
                         };

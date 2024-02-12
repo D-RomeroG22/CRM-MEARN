@@ -31,7 +31,10 @@ function OptionsForm({ categoryId }) {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const optionsData = await OptionsService.getAllOptions(categoryId);
+            console.log(categoryId)
+            const optionsData = await OptionsService.getAllCategories(categoryId);
+            console.log(optionsData)
+
             setOptions(optionsData);
         } catch (error) {
             console.error(error);
@@ -160,13 +163,13 @@ function OptionsForm({ categoryId }) {
                     {loading ? (
                         <LoaderComponent />
                     ) : options.length ? (
-                        <div className="collection">
+                        <div className="collection"> {console.log(options)}
                             {options.map((option) => (
                                 <div
                                     key={option._id}
                                     onClick={() => selectOption(option)}
                                     className="collection-item collection-item-icon"
-                                >
+                                >{console.log(option)}
                                     <span>
                                         {option.name}
                                         <strong>{`${option.cost} $`}</strong>

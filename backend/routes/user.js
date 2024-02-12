@@ -7,7 +7,6 @@ require('../middleware/passport')(passport);
 
 router.get('/:id', userController.getUser);
 router.post('/', userController.createUser);
-// router.patch('/:id', userController.updateUser);
 router.patch(
     '/:id',
     passport.authenticate('jwt', { session: false }),

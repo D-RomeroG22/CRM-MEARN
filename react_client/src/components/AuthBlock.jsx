@@ -6,7 +6,7 @@ const AuthBlock = ({ children }) => {
     return (
       <>
         <nav>
-          <div className="nav-wrapper grey darken-1">
+          <div className="nav-wrapper blue darken-1">
             <Link to="/" className="brand-logo">
               CRM MERN
             </Link>

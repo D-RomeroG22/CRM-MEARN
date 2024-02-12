@@ -143,11 +143,7 @@ export class OptionsFormComponent
                   option => {
                         this.initializeOptions();
 
-                        this.materialService.toast(
-                              this.optionId
-                                    ? `Option ${option.name} was updated`
-                                    : `Option ${option.name} was created`,
-                        );
+                        this.materialService.toast(`La Opción ${option.name} fue ${this.optionId ? 'actualizada' : 'creada'}`);
                   },
                   err => {
                         this.materialService.toast(err.error.message);

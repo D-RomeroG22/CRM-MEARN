@@ -137,7 +137,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
       }
 
       removeCategory() {
-            const decision = window.confirm(`Are you sure you want to delete the category ${this.category?.name}?`);
+            const decision = window.confirm(`Seguro que quieres borrar la categoría ${this.category?.name}?`);
             if (decision) {
                   this.categoryId &&
                         this.categoriesService

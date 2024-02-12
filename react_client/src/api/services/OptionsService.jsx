@@ -22,9 +22,19 @@ const OptionsService = {
         }
     },
 
-    getAllOptions: async () => {
+    getAllCategories: async () => {
         try {
             const response = await api.private.get(`${environment.urls.categories}`);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+
+    getAllOptions: async (id) => {
+        try {
+            const response = await api.private.get(`${environment.urls.option}/`+id);
             return response.data;
         } catch (error) {
             console.error(error);

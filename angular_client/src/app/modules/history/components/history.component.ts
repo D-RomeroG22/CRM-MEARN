@@ -13,7 +13,6 @@ import {
 import { OrdersService as HttpOrdersService, OrdersService } from "../../../shared/services/orders/orders.service";
 import { Subject, takeUntil } from "rxjs";
 import { environment } from "../../../../enviroments/environment";
-import { FilterInterface } from "../../../shared/interfaces/filter.interface";
 import { OrderInterface } from "src/app/shared/interfaces/option.interface";
 import { AuthService } from "../../../shared/services/auth/auth.service";
 
@@ -22,37 +21,25 @@ import { AuthService } from "../../../shared/services/auth/auth.service";
       templateUrl: "./history.component.html",
       styleUrls: ["./history.component.css"],
 })
-export class HistoryComponent implements AfterViewInit, OnDestroy, OnInit {
+export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
       showFilter = false;
       offset = 0;
       limit = environment.STEP;
-      filterTooltip!: MaterialInterface;
       historyList: OrderInterface[] = [];
       isAlive = new Subject<void>();
       @ViewChild("tooltip") tooltipRef: ElementRef | undefined;
       loadingFlag = false;
       reloadingFlag = false;
       noMoreFlag = false;
-      private filter: FilterInterface = {};
       constructor(
             private materialService: MaterialService,
             private ordersService: OrdersService,
             private authService: AuthService,
       ) { }
-      triggerFilter() {
-            this.showFilter = !this.showFilter;
-            this.changeTooltipNotification();
-            if (!this.showFilter && !!Object.keys(this.filter).length) {
-                  this.historyList = [];
-                  this.filter = {};
-                  this.fetch();
-            }
-      }
 
       reloadContent() {
             this.historyList = [];
             this.offset = 0;
-            this.filter = {};
             this.reloadingFlag = true;
             this.fetch();
       }
@@ -68,29 +55,11 @@ export class HistoryComponent implements AfterViewInit, OnDestroy, OnInit {
       }
 
       ngAfterViewInit(): void {
-            this.filterTooltip = this.materialService.initTooltip(
-                  this.tooltipRef?.nativeElement,
-            );
       }
 
       ngOnDestroy(): void {
             this.isAlive.next();
             this.isAlive.complete();
-            this.filterTooltip.destroy();
-      }
-
-      private changeTooltipNotification() {
-            if (this.showFilter) {
-                  this.tooltipRef?.nativeElement.setAttribute(
-                        "data-tooltip",
-                        "Close tooltip",
-                  );
-            } else {
-                  this.tooltipRef?.nativeElement.setAttribute(
-                        "data-tooltip",
-                        "Open tooltip",
-                  );
-            }
       }
 
       ngOnInit(): void {
@@ -138,18 +107,5 @@ export class HistoryComponent implements AfterViewInit, OnDestroy, OnInit {
                         console.error('Error fetching orders: Current user ID is undefined.');
                   }
             }
-      }
-
-
-      applyFilter($event: FilterInterface) {
-            this.historyList = [];
-            this.offset = 0;
-            this.filter = $event;
-            this.reloadingFlag = true;
-            this.fetch();
-      }
-
-      isFiltered(): boolean {
-            return !!Object.keys(this.filter).length;
       }
 }

@@ -13,9 +13,19 @@ export interface OptionWithQuantityInterface extends OptionInterface {
       quantity?: number;
 }
 
+export interface OrderContent {
+      order: number;
+      list: [];
+      user: String;
+      client: String;
+      status: String;
+      _id: String;
+      date: String;
+}
+
 export interface OrderInterface {
       date?: Date;
-      order?: number;
+      order?: OrderContent;
       list: OptionWithQuantityInterface[];
       user?: string;
       client?: UserDetailsInterface;

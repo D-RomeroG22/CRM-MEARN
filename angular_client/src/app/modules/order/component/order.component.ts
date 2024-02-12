@@ -76,7 +76,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
                   takeUntil(this.isAlive),
                   switchMap((currentUser) => {
                         if (!currentUser || !currentUser._id) {
-                              this.materialService.toast('No user logged in!');
+                              this.materialService.toast('No ha iniciado sesión!');
                               this.pending = false;
                               return EMPTY;
                         }
@@ -84,7 +84,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
                         
                   }),
                   catchError((error) => {
-                        this.materialService.toast('Could not retrieve user details.');
+                        this.materialService.toast('No se pueden obtener los detalles del usuario.');
                         this.pending = false;
                         return EMPTY;
                   })
@@ -105,7 +105,8 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
 
                   this.httpOrdersService.createOrder(newOrder).subscribe(
                         createdOrder => {
-                              this.materialService.toast(`Order №${createdOrder.order} was created!`);
+                              let orderNumber = createdOrder.order?.order;
+                              this.materialService.toast(`La orden № ${orderNumber} fue creada!`);
                               this.appOrdersService.clear();
                               this.listToOrder = this.appOrdersService.list;
                               this.modal.close();

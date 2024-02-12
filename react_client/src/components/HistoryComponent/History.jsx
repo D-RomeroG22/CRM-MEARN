@@ -119,15 +119,6 @@ function HistoryComponent() {
                 <div className="page-title">
                     <h4>Historial de Pedidos</h4>
                     <button
-                        onClick={triggerFilter}
-                        className={`btn btn-small${showFilter ? ' opened' : ''}${isFiltered() ? 'red' : ''}`}
-                        disabled={!historyList}
-                        data-option="left"
-                        data-tooltip={showFilter ? 'Close tooltip' : 'Open tooltip'}
-                    >
-                        <i className="material-icons">filter_list</i>
-                    </button>
-                    <button
                         onClick={reloadContent}
                         className="btn btn-small"
                         disabled={reloadingFlag}

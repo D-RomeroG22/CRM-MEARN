@@ -1,11 +1,6 @@
 <main class="content">
       <div class="page-title">
             <h4>Historial de Pedidos</h4>
-            <button #tooltip (click)="triggerFilter()" class="btn btn-small"
-                  [ngClass]="{ opened: showFilter, red: isFiltered() }" [disabled]="!historyList" data-option="left"
-                  data-tooltip="Filtrar...">
-                  <i class="material-icons">filter_list</i>
-            </button>
             <button (click)="reloadContent()" class="btn btn-small" [disabled]="reloadingFlag" data-tooltip="Recargar">
                   <i class="material-icons">refresh</i>
             </button>
@@ -14,10 +9,6 @@
 
       <div class="card">
             <div class="card-content">
-                  <ng-container *ngIf="showFilter">
-                        <crm-history-list (orderFinished)="onOrderFinished()"
-                              [historyList]="historyList"></crm-history-list>
-                  </ng-container>
                   <ng-container *ngIf="!reloadingFlag; else reloading">
                         <ng-container *ngIf="historyList.length; else empty">
                               <crm-history-list [historyList]="historyList"></crm-history-list>

@@ -4,15 +4,14 @@ import OrderService from '../../api/services/OrderService';
 import OptionsService from '../../api/services/OptionsService';
 import MaterialService from '../../api/services/MaterialService.jsx';
 
-const OrderOptions = () => {
-    const { id } = useParams();
+const OrderOptions = ({ optionSelected }) => { // nota: evitar esto y capturar el id de la ruta
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const optionsData = await OptionsService.getAllOptions(id);
+                const optionsData = await OptionsService.getAllOptions(optionSelected);
                 const optionsWithQuantity = optionsData.map((p) => ({ ...p, quantity: 1 }));
                 setOptions(optionsWithQuantity);
                 setLoading(false);
@@ -23,7 +22,7 @@ const OrderOptions = () => {
         };
 
         fetchData();
-    }, [id]);
+    }, [optionSelected]);
 
     const addToOrder = (option) => {
         MaterialService.toast(`Option ${option.name} x${option.quantity} is added.`);
@@ -31,7 +30,7 @@ const OrderOptions = () => {
     };
 
     return (
-        <main>
+        <main className="content">
             <table className="highlight">
                 {loading ? (
                     <crm-loader></crm-loader>
@@ -48,13 +47,13 @@ const OrderOptions = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <button disabled={!option.quantity} onClick={() => addToOrder(option)} className="btn waves-effect wavers-light btn-small">Add</button>
+                                        <button disabled={!option.quantity} onClick={() => addToOrder(option)} className="btn waves-effect wavers-light btn-small">Agregar</button>
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <span className="valign-wrapper">
-                                <i className="material-icons">do_not_disturb_alt</i>No options
+                                <i className="material-icons">do_not_disturb_alt</i>No hay opciones
                             </span>
                         )}
                     </tbody>

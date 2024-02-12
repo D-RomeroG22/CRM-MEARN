@@ -6,7 +6,6 @@ const ExtractJwt = passportJwt.ExtractJwt;
 const User = require("../models/User");
 const keys = require("../config/keys");
 
-// JWT Strategy for passport
 const passportOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: keys.jwt,
@@ -27,7 +26,6 @@ passport.use(
     })
 );
 
-// Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
