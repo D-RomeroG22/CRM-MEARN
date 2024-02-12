@@ -1,6 +1,6 @@
 export const environment = {
       production: true,
-      apiUrl: 'http://localhost:4200',
+      apiUrl: 'https://coffe-mearn.netlify.app',
       urls: {
           auth: 'http://localhost:5000/api/v1/auth',
           categories: "http://localhost:5000/api/v1/category",

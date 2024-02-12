@@ -2,12 +2,12 @@
       <h4>CRM MEAN</h4>
       <li class="bold" *ngFor="let item of linksList; trackBy: trackByName" [routerLink]="item.path"
             [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="waves-effect waves-orange" [ngStyle]="{'display': item.display ? 'block' : 'none'}">
+            <a class="waves-effect waves-angular" [ngStyle]="{'display': item.display ? 'block' : 'none'}">
                   {{ item.title }}
             </a>
       </li>
       <li class="bold last"><a [routerLink]="routerPathsEnum.LOGIN" (click)="logout()"
-                  class="waves-effect waves-orange">Cerrar Sesión</a></li>
+                  class="waves-effect waves-angular">Cerrar Sesión</a></li>
 </ul>
 <router-outlet></router-outlet>
 

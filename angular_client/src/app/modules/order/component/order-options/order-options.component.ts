@@ -33,7 +33,7 @@ export class OrderOptionsComponent implements OnInit {
 
       addToOrder(option: OptionWithQuantityInterface) {
             this.materialService.toast(
-                  `Option ${option.name} x${option.quantity} is added.`,
+                  `La Opción ${option.name} x${option.quantity} fue agregada.`,
             );
             this.appOrderService.add(option);
       }

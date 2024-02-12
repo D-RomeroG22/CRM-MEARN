@@ -36,7 +36,7 @@ RUN chmod +x /app/wait-for-mongodb.sh
 
 COPY config /app/config
 
-RUN npm run build
+RUN npm run build --legacy-peer-deps
 
 
 FROM nginx:latest

@@ -17,7 +17,7 @@
                         trackBy: trackById
                   ">
                   <td>{{ historyItem.order }}</td>
-                  <td>{{ historyItem.date | date : "dd.MM.yyyy" }}</td>
+                  <td>{{ historyItem.date | date : "dd/MM/yyyy" }}</td>
                   <td>{{ historyItem.date | date : "HH:mm:ss" }}</td>
                   <td>{{ calculateTotalCost(historyItem) }} $</td>
                   <td>{{ historyItem.status == 'Pending' ? 'Iniciada' : 'Finalizada' }}</td>
@@ -62,7 +62,7 @@
             </div>
       </div>
       <div class="modal-footer">
-            <button class="modal-action waves-effect waves-black btn-flat" *ngIf="isAdmin && selectedOrder?.status == 'Pending'" (click)="finishOrder()">Finalizar</button>
+            <button class="btn waves-effect grey darken-1 btn-small" *ngIf="isAdmin && selectedOrder?.status == 'Pending'" (click)="finishOrder()">Finalizar</button>
             <button
                   class="modal-action waves-effect waves-black btn-flat"
                   (click)="closeModal()"

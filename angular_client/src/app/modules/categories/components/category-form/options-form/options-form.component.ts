@@ -120,11 +120,7 @@ export class OptionsFormComponent
                   option => {
                         this.initializeOptions();
 
-                        this.materialService.toast(
-                              this.optionId
-                                    ? `Option ${option.name} was updated`
-                                    : `Option ${option.name} was created`,
-                        );
+                        this.materialService.toast(`La Opción ${option.name} fue ${this.optionId ? 'actualizada' : 'creada'}`);
                   },
                   err => {
                         this.materialService.toast(err.error.message);
@@ -143,7 +139,7 @@ export class OptionsFormComponent
 
       removeOption(_id: string, event: Event) {
             event.stopPropagation();
-            const decision = window.confirm("Do you really want to remove it?");
+            const decision = window.confirm("Realmente quieres removerlo?");
             if (decision) {
                   this.optionsService
                         .removeOption(_id)

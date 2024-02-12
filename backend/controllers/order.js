@@ -3,14 +3,14 @@ const Client = require("../models/Client");
 const User = require("../models/User");
 const errorHandler = require("../utils/errorHandler");
 
-module.exports.getAll = async function(req, res) {
+module.exports.getAll = async function (req, res) {
   try {
     const orders = await Order.find({})
       .sort({ date: -1 })
       .skip(+req.query.offset)
       .limit(+req.query.limit)
-      .populate('client')
-      .populate('user');
+      .populate("client")
+      .populate("user");
     res.status(200).json(orders);
   } catch (e) {
     errorHandler(res, e);
@@ -41,18 +41,23 @@ module.exports.getUserOrders = async function (req, res) {
       .sort({ date: -1 })
       .skip(+req.query.offset)
       .limit(+req.query.limit)
-      .populate('client')
-      .populate('user');
+      .populate("client")
+      .populate("user");
     res.status(200).json(orders);
   } catch (e) {
     errorHandler(res, e);
   }
 };
-
+async function generateUniqueOrder() {
+  const orderCounter = await Order.countDocuments() + 1;
+  return orderCounter;
+}
 module.exports.create = async function (req, res) {
   try {
-    const lastOrder = await Order.findOne().sort({ date: -1 });
-    const maxOrder = lastOrder ? lastOrder.order : 0;
+    const orderValue = await generateUniqueOrder();
+
+    const maxOrder = orderValue;
+
     let clientId;
     let createdClient;
 
@@ -62,7 +67,6 @@ module.exports.create = async function (req, res) {
         .status(400)
         .json({ message: "El nombre del cliente es requerido." });
     }
-
     createdClient = await Client.findOne({ email: clientData.email });
 
     if (createdClient) {
@@ -81,7 +85,7 @@ module.exports.create = async function (req, res) {
         phone: clientData.phone,
         email: clientData.email,
         user: req.user._id,
-        order: maxClient + 1,
+        order: orderValue,
       }).save();
       clientId = createdClient._id;
     }
@@ -105,7 +109,7 @@ module.exports.create = async function (req, res) {
       client: clientId,
       comment: req.body.comment,
       status: req.body.status,
-      order: maxOrder + 1,
+      order: orderValue,
     }).save();
 
     await Client.findByIdAndUpdate(
@@ -116,6 +120,7 @@ module.exports.create = async function (req, res) {
 
     res.status(201).json({ order, client: createdClient });
   } catch (e) {
+    console.error(e)
     errorHandler(res, e);
   }
 };

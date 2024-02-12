@@ -8,8 +8,6 @@ const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
 
-// app.use(cors());
-
 const keys = require('./config/keys');
 const authRoutes = require('./routes/auth');
 const analyticsRoutes = require('./routes/analytics');
