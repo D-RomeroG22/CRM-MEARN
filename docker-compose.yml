@@ -11,7 +11,7 @@ services:
     networks:
       - crm-network
     ports:
-      - 27019:27017
+      - 27018:27017
     volumes:
       - ./data:/data/db
     environment:
@@ -42,8 +42,8 @@ services:
     networks:
       - crm-network
     ports:
-      # - "3000:3000" # Sin NGINX
-      - "3000:80" # Con NGINX
+      # - 3000:3000 # Sin NGINX
+      - 3000:80 # Con NGINX
     stdin_open: true
     tty: true
     depends_on:

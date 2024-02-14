@@ -1,4 +1,4 @@
-import * as cronEmail from './cron'
+const cronEmail = require("./cron");
 const app = require("./app");
 const port = process.env.PORT || 5000;
 

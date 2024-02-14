@@ -153,7 +153,7 @@ footer {
       z-index: 10;
 }
 .collection-item-icon i.material-icons:hover {
-      color: #f44336 !important;
+      color: #03a9f4 !important;
       transition: 0.3s color;
 }
 .pl0 {

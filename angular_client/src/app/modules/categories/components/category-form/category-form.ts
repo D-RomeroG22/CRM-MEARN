@@ -8,7 +8,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MaterialService } from "../../../../shared/classes/material.service";
 import { of } from 'rxjs';
 import { MatDialog } from "@angular/material/dialog";
-import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
+import { ConfirmCategoryDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 
 
 @Component({
@@ -153,8 +153,8 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
             }
       }
 
-      openConfirmDialog(): void {
-            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      openConfirmCategoryDialog(): void {
+            const dialogRef = this.dialog.open(ConfirmCategoryDialogComponent, {
                   width: '250px'
             });
 

@@ -17,7 +17,7 @@ export class HistoryListComponent implements OnInit, AfterViewInit, OnDestroy {
       @Input("historyList") historyListProps!: OrderInterface[] | null;
       @ViewChild("modal") modalRef!: ElementRef;
       @Output() orderFinished = new EventEmitter<void>();
-      @Output() fetch = new EventEmitter<void>(); // Nuevo EventEmitter
+      @Output() fetch = new EventEmitter<void>();
       private destroy$ = new Subject<void>();
       constructor(
             private materialService: MaterialService,
@@ -60,7 +60,6 @@ export class HistoryListComponent implements OnInit, AfterViewInit, OnDestroy {
             if (this.selectedOrder && this.selectedOrder._id) {
                   this.orderService.finishOrder(this.selectedOrder._id).subscribe({
                         next: (updatedOrder) => {
-                              console.log(updatedOrder)
                               this.selectedOrder = updatedOrder;
                               this.materialService.toast('Orden finalizada!');
                               this.closeModal();
@@ -76,7 +75,7 @@ export class HistoryListComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       closeModal() {
-            this.fetch.emit(); // Emitir evento fetch
+            this.fetch.emit();
             this.modalWindow.close();
       }
 

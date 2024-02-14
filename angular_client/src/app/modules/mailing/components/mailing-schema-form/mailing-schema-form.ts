@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { MaterialService } from "../../../../shared/classes/material.service";
 import { MatDialog } from "@angular/material/dialog";
-import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
+import { ConfirmMailDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 import { EmailSchemaInterface } from "src/app/shared/interfaces/email-schema.interface";
 import { MatDatepicker } from "@angular/material/datepicker";
 import { EmailSchemasService } from "src/app/shared/services/email/email.service";
@@ -141,8 +141,8 @@ export class MailingSchemaFormComponent implements OnInit, OnDestroy {
             }
       }
 
-      openConfirmDialog(): void {
-            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      openConfirmMailDialog(): void {
+            const dialogRef = this.dialog.open(ConfirmMailDialogComponent, {
                   width: "250px",
             });
 

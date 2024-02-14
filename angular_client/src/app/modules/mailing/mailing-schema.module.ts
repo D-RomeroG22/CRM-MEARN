@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MailingSchemasComponent } from "./components/mailing-schema.component";
 import { OptionsFormComponent } from "./components/mailing-schema-form/mailing-schema-form/options-form.component";
-import { ConfirmDialogComponent } from "./components/mailing-schema-form/confirm-dialog/confirm-dialog.component";
+import { ConfirmMailDialogComponent } from "./components/mailing-schema-form/confirm-dialog/confirm-dialog.component";
 import { MailingSchemaFormComponent } from "./components/mailing-schema-form/mailing-schema-form";
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-      declarations: [MailingSchemasComponent, MailingSchemaFormComponent, OptionsFormComponent, ConfirmDialogComponent],
+      declarations: [MailingSchemasComponent, MailingSchemaFormComponent, OptionsFormComponent, ConfirmMailDialogComponent],
       imports: [
             CommonModule,
             RouterLink,

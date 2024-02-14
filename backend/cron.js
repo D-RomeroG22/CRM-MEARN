@@ -36,7 +36,7 @@ class CronEmail {
   }
 }
 
-export const EmailService = async () => {
+const EmailService = async () => {
   const fecha = new Date();
   try {
     const query = {
@@ -57,3 +57,6 @@ export const EmailService = async () => {
     return error;
   }
 };
+
+const cronEmail = EmailService()
+module.exports = cronEmail;

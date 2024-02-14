@@ -40,7 +40,6 @@ export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
       }
 
       onOrderFinished() {
-            console.log('seejecuta orderFinished')
             this.reloadContent();
       }
 
@@ -70,12 +69,11 @@ export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
             };
 
             if (this.authService.isAdmin()) {
-                  console.log('pq tecascas?', params);
                   this.ordersService.getAllOrders(params)
                         .pipe(takeUntil(this.isAlive))
                         .subscribe(
                               (orders: OrderInterface[]) => {
-                                    this.historyList = orders; // Asigna los nuevos datos, reemplazando los anteriores
+                                    this.historyList = orders;
                                     this.loadingFlag = false;
                                     this.reloadingFlag = false;
                                     this.noMoreFlag = orders.length < this.limit;
@@ -91,7 +89,7 @@ export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
                               .pipe(takeUntil(this.isAlive))
                               .subscribe(
                                     (orders: OrderInterface[]) => {
-                                          this.historyList = orders; // Asigna los nuevos datos, reemplazando los anteriores
+                                          this.historyList = orders;
                                           this.loadingFlag = false;
                                           this.reloadingFlag = false;
                                           this.noMoreFlag = orders.length < this.limit;

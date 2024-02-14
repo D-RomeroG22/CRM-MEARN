@@ -39,7 +39,7 @@ function AnalyticsComponent() {
                     const orderDataset = {
                         label: 'Pedidos',
                         data: orders,
-                        borderColor: '#26a69a',
+                        borderColor: '#03a9f4',
                         fill: false,
                         tension: 0.1,
                     };
