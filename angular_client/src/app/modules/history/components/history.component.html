@@ -11,7 +11,8 @@
             <div class="card-content">
                   <ng-container *ngIf="!reloadingFlag; else reloading">
                         <ng-container *ngIf="historyList.length; else empty">
-                              <crm-history-list [historyList]="historyList"></crm-history-list>
+                              <crm-history-list [historyList]="historyList" (orderFinished)="onOrderFinished()"
+                                    (fetch)="fetch()"></crm-history-list>
                         </ng-container>
                         <ng-template #empty>
                               <div class="center">No hay pedidos</div>

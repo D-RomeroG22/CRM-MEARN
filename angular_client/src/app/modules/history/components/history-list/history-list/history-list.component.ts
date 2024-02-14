@@ -1,17 +1,5 @@
-import {
-      AfterViewInit,
-      Component,
-      ElementRef,
-      EventEmitter,
-      Input,
-      OnDestroy,
-      Output,
-      ViewChild,
-} from "@angular/core";
-import {
-      MaterialInterface,
-      MaterialService,
-} from "../../../../../shared/classes/material.service";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild, OnInit } from "@angular/core";
+import { MaterialInterface, MaterialService } from "../../../../../shared/classes/material.service";
 import { OrderInterface } from "src/app/shared/interfaces/option.interface";
 import { OrderService } from "src/app/modules/order/service/order.service";
 import { Subject, takeUntil } from "rxjs";
@@ -22,13 +10,14 @@ import { AuthService } from "src/app/shared/services/auth/auth.service";
       templateUrl: "./history-list.component.html",
       styleUrls: ["./history-list.component.css"],
 })
-export class HistoryListComponent implements AfterViewInit, OnDestroy {
+export class HistoryListComponent implements OnInit, AfterViewInit, OnDestroy {
       modalWindow!: MaterialInterface;
       selectedOrder!: OrderInterface;
       isAdmin: boolean = false;
       @Input("historyList") historyListProps!: OrderInterface[] | null;
       @ViewChild("modal") modalRef!: ElementRef;
       @Output() orderFinished = new EventEmitter<void>();
+      @Output() fetch = new EventEmitter<void>(); // Nuevo EventEmitter
       private destroy$ = new Subject<void>();
       constructor(
             private materialService: MaterialService,
@@ -71,6 +60,8 @@ export class HistoryListComponent implements AfterViewInit, OnDestroy {
             if (this.selectedOrder && this.selectedOrder._id) {
                   this.orderService.finishOrder(this.selectedOrder._id).subscribe({
                         next: (updatedOrder) => {
+                              console.log(updatedOrder)
+                              this.selectedOrder = updatedOrder;
                               this.materialService.toast('Orden finalizada!');
                               this.closeModal();
                               this.orderFinished.emit();
@@ -85,6 +76,7 @@ export class HistoryListComponent implements AfterViewInit, OnDestroy {
       }
 
       closeModal() {
+            this.fetch.emit(); // Emitir evento fetch
             this.modalWindow.close();
       }
 
