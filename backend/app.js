@@ -14,7 +14,7 @@ const {
 
 const app = express();
 
-// app.use(cors());
+app.use(cors());
 
 const keys = require("./config/keys");
 const authRoutes = require("./routes/auth");

@@ -91,7 +91,7 @@ module.exports.sendEmailToAll = async (req, res) => {
           from: 'admin@crm-coffee.com',
           to: client.email,
           subject: emailSchema.subject,
-          html: emailSchema.content,
+          html: emailSchema.templateUrl,
         };
 
         await transporter.sendMail(mailOptions);
