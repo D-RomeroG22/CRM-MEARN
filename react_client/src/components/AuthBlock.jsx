@@ -11,7 +11,7 @@ const AuthBlock = ({ children }) => {
               CRM MERN
             </Link>
             <ul id="nav-mobile" className="right">
-              {location.pathname === "/register" ? (
+              {location.pathname.includes("/register") ? (
                 <li>
                   <Link to="/login">Iniciar</Link>
                 </li>

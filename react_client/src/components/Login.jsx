@@ -53,11 +53,10 @@ const Login = () => {
                             email: "",
                             password: "",
                         });
-                        return navigate('/order', { replace: true });
+                        return navigate(res.admin ? '/overview' : '/order', { replace: true });
                     });
             })
             .catch((err) => {
-                console.log(err)
                 if (err.response?.data.message) {
                     showToast({msg: err.response.data.message, isErr: true});
                 } else {

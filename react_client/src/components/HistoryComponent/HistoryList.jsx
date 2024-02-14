@@ -18,7 +18,6 @@ function HistoryListComponent({ historyList, orderFinished, openModal, closeModa
 
     const selectOrder = (item) => {
         setSelectedOrder(item);
-        console.log(item);
         openModal();
     };
 
@@ -30,7 +29,6 @@ function HistoryListComponent({ historyList, orderFinished, openModal, closeModa
         if (selectedOrder && selectedOrder._id) {
             return OrderService.finishOrder(selectedOrder._id)
                 .then(response => {
-                    console.log('respondió finishOrder', response)
                     MaterialService.toast('Orden finalizada!');
                     closeModal();
                     orderFinished();

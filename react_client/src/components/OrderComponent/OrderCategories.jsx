@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { RouterPathsEnum } from '../../api/enums/routerPaths.enum.tsx';
 import CategoriesService from '../../api/services/CategoriesService';
-import { useNavigate } from 'react-router-dom'; // Utiliza useNavigate en lugar de useHistory
+import { useNavigate, Link } from 'react-router-dom';
 
-const OrderCategories = ({ setOptionSelected }) => {
+const OrderCategories = ({ setOptionSelected, listToOrder, isRoot, showModal }) => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate(); // Utiliza useNavigate
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             CategoriesService.getAllCategories()
                 .then(response => {
                     setCategories(response);
@@ -34,7 +35,7 @@ const OrderCategories = ({ setOptionSelected }) => {
                 <div className="main">
                     {categories.length ? (
                         categories.map((category, index) => (
-                            <div key={index} className="card waves-effect pointer" onClick={() => setOptionSelected(category._id)}>
+                            <div key={index} className="card waves-effect pointer" onClick={() => navigate('/order/'+category._id,{props: true})}>
                                 <div className="center">
                                     <img src={category.image} alt="imageSrc" className="responsive-img order-img" />
                                 </div>
@@ -44,7 +45,7 @@ const OrderCategories = ({ setOptionSelected }) => {
                             </div>
                         ))
                     ) : (
-                        <span className="center">You haven't any categories.</span>
+                        <span className="center">No hay Categorías.</span>
                     )}
                 </div>
             )}

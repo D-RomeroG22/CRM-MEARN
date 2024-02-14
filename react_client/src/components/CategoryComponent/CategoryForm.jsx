@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import CategoriesService from '../../api/services/CategoriesService';
-import LoaderComponent from '../LoaderComponent.jsx';
+import { showToast } from '../../utils/showToast.js';
 import './styles.css'
 import OptionsForm from './OptionForm.jsx';
 
@@ -45,7 +45,6 @@ function CategoryForm() {
                     image: imagePreview,
                     name: formData.name,
                 }).then(response => {
-                    console.log('response', response)
                     navigate('/categories/' + response._id);
                 });
             } else {
@@ -63,19 +62,13 @@ function CategoryForm() {
         }
     };
 
-    const handleCancel = () => {
-        navigate('/');
-    };
-
     const handleDelete = async () => {
-        const decision = window.confirm(`Are you sure you want to delete the category ${category?.name}?`);
+        const decision = window.confirm(`Realmente quieres eliminar la Categoría ${category?.name}?`);
         if (decision) {
-            try {
-                await CategoriesService.removeCategory(id);
+            CategoriesService.removeCategory(id).then(response => {
+                showToast({ msg: "La categoría ha sido eliminada." })
                 navigate('/categories');
-            } catch (error) {
-                console.error(error);
-            }
+            }).catch(errors => console.error(errors))
         }
     };
 

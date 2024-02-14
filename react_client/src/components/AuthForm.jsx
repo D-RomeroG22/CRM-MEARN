@@ -45,18 +45,19 @@ const AuthForm = forwardRef(({
                 formData.name !== ''
                 && formData.surname !== ''
                 && /^3\d{9}$/.test(formData.phone)
-            )
-        } else if (isRegistering) {
+                )
+            } else if (isRegistering) {
             return (
                 formData.name !== ''
                 && formData.surname !== ''
                 && /^3\d{9}$/.test(formData.phone)
                 && /^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)
                 && /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}/.test(formData.password)
-            )
-        } else {
+                )
+            } else {
             return (
                 /^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)
+                && /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}/.test(formData.password)
             )
         }
     }

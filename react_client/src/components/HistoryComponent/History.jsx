@@ -11,7 +11,7 @@ import './styles.css'
 function HistoryComponent() {
     const [showFilter, setShowFilter] = useState(false);
     const [offset, setOffset] = useState(0);
-    const [limit] = useState(environment.STEP);
+    const [limit, setLimit] = useState(environment.STEP);
     const [historyList, setHistoryList] = useState([]);
     const [loadingFlag, setLoadingFlag] = useState(false);
     const [reloadingFlag, setReloadingFlag] = useState(false);
@@ -30,31 +30,11 @@ function HistoryComponent() {
         return () => isAlive.next();
     }, [offset, limit]);
 
-    const changeTooltipNotification = () => {
-        if (tooltipRef.current) {
-            if (showFilter) {
-                tooltipRef.current.setAttribute('data-tooltip', 'Close tooltip');
-            } else {
-                tooltipRef.current.setAttribute('data-tooltip', 'Open tooltip');
-            }
-        }
-    };
-
-    const triggerFilter = () => {
-        setShowFilter(!showFilter);
-        changeTooltipNotification();
-        if (!showFilter && Object.keys(filter).length > 0) {
-            setHistoryList([]);
-            setFilter({});
-            fetchHistory();
-        }
-    };
-
     const reloadContent = () => {
-        setHistoryList([]);
-        setOffset(0);
-        setFilter({});
-        setReloadingFlag(true);
+        setHistoryList(prev => prev = []);
+        setOffset(prev => prev = 0);
+        setLimit(prev => prev = 2)
+        setFilter(prev => prev = {});
         fetchHistory();
     };
 
@@ -63,46 +43,41 @@ function HistoryComponent() {
     };
 
     const loadMore = () => {
-        setOffset((prev) => prev + environment.STEP);
+        setLimit((prev) => prev + environment.STEP);
         fetchHistory();
     };
 
     const fetchHistory = () => {
+        setReloadingFlag(true);
         setLoadingFlag(true);
         const params = { offset, limit };
         if (currentUser.admin) {
             OrderService.getAllOrders({ ...params })
                 .then((response) => {
                     setNoMoreFlag(response.length < limit);
+                    setReloadingFlag(false);
                     setLoadingFlag(false);
-                    setHistoryList([...historyList, ...response]);
+                    setHistoryList([...response]);
                 })
                 .catch((error) => {
+                    setReloadingFlag(false);
+                    setLoadingFlag(false);
                     console.error('Error fetching orders:', error);
                 });
         } else {
             OrderService.getOrdersByUser({ userId: currentUser._id, ...params })
                 .then((response) => {
                     setNoMoreFlag(response.length < limit);
+                    setReloadingFlag(false);
                     setLoadingFlag(false);
-                    setHistoryList([...historyList, ...response]);
+                    setHistoryList([...response]);
                 })
                 .catch((error) => {
+                    setReloadingFlag(false);
+                    setLoadingFlag(false);
                     console.error('Error fetching orders:', error);
                 });
         }
-    };
-
-    const applyFilter = (event) => {
-        setHistoryList([]);
-        setOffset(0);
-        setFilter(event);
-        setReloadingFlag(true);
-        fetchHistory();
-    };
-
-    const isFiltered = () => {
-        return Object.keys(filter).length > 0;
     };
 
     const openModal = () => {
@@ -127,7 +102,7 @@ function HistoryComponent() {
                         <i className="material-icons">refresh</i>
                     </button>
                 </div>
-                {showFilter && <HistoryFilter onFilter={applyFilter} />}
+                {showFilter && <HistoryFilter />}
                 <div className="card">
                     <div className="card-content">
                         {loadingFlag ? (

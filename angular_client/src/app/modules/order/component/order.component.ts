@@ -81,7 +81,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
                               return EMPTY;
                         }
                         return of(currentUser);
-                        
+
                   }),
                   catchError((error) => {
                         this.materialService.toast('No se pueden obtener los detalles del usuario.');

@@ -10,6 +10,7 @@ const OrderOptions = ({ optionSelected }) => { // nota: evitar esto y capturar e
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const optionsData = await OptionsService.getAllOptions(optionSelected);
                 const optionsWithQuantity = optionsData.map((p) => ({ ...p, quantity: 1 }));
@@ -30,36 +31,34 @@ const OrderOptions = ({ optionSelected }) => { // nota: evitar esto y capturar e
     };
 
     return (
-        <main className="content">
-            <table className="highlight">
-                {loading ? (
-                    <crm-loader></crm-loader>
-                ) : (
-                    <tbody>
-                        {options.length ? (
-                            options.map((option) => (
-                                <tr key={option._id}>
-                                    <td>{option.name}</td>
-                                    <td>{option.cost} $</td>
-                                    <td>
-                                        <div className="input-field inline order-option-input">
-                                            <input value={option.quantity} onChange={(e) => setOptions(options.map((o) => (o._id === option._id ? { ...o, quantity: e.target.value } : o)))} type="number" min="0" />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button disabled={!option.quantity} onClick={() => addToOrder(option)} className="btn waves-effect wavers-light btn-small">Agregar</button>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <span className="valign-wrapper">
-                                <i className="material-icons">do_not_disturb_alt</i>No hay opciones
-                            </span>
-                        )}
-                    </tbody>
-                )}
-            </table>
-        </main>
+        <table className="highlight">
+            {loading ? (
+                <crm-loader></crm-loader>
+            ) : (
+                <tbody>
+                    {options.length ? (
+                        options.map((option) => (
+                            <tr key={option._id}>
+                                <td>{option.name}</td>
+                                <td>{option.cost} $</td>
+                                <td>
+                                    <div className="input-field inline order-option-input">
+                                        <input value={option.quantity} onChange={(e) => setOptions(options.map((o) => (o._id === option._id ? { ...o, quantity: e.target.value } : o)))} type="number" min="0" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <button disabled={!option.quantity} onClick={() => addToOrder(option)} className="btn waves-effect wavers-light btn-small">Agregar</button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <span className="valign-wrapper">
+                            <i className="material-icons">do_not_disturb_alt</i>No hay opciones
+                        </span>
+                    )}
+                </tbody>
+            )}
+        </table>
     );
 };
 

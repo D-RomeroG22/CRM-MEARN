@@ -21,11 +21,6 @@ function OverviewComponent() {
             }).catch(errors => {
                 console.error(errors)
             });
-        // setYesterday((prevYesterday) => {
-        //     const newYesterday = new Date(prevYesterday);
-        //     newYesterday.setDate(newYesterday.getDate() - 1);
-        //     return newYesterday;
-        // });
     }, []);
 
     useEffect(() => {

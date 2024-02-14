@@ -69,7 +69,7 @@ const PROTECT = [
   },
   {
     path: 'order/:id',
-    component: <OrderOptions />
+    component: <OrderOptions/>
   },
   {
     path: 'categories',

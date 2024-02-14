@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import OrderCategories from './OrderCategories'; // Importa el componente OrderCategories
-import OrderOptions from './OrderOptions';
+import OrderCategories from './OrderCategories';
 import OrderService from '../../api/services/OrderService';
 import AuthService from '../../api/services/AuthService';
 import MaterialService from '../../api/services/MaterialService';
 import { Link } from 'react-router-dom';
 
-const Order = () => {
+const Order = ({ ...props }) => {
     const [isRoot, setIsRoot] = useState(false);
     const [pending, setPending] = useState(false);
     const [listToOrder, setListToOrder] = useState([]);
@@ -51,7 +50,7 @@ const Order = () => {
             const currentUser = await AuthService.getCurrentUser();
 
             if (!currentUser || !currentUser._id) {
-                MaterialService.M.toast({ html: 'No user logged in!' });
+                MaterialService.M.toast({ html: 'No ha iniciado sesión!' });
                 setPending(false);
                 return;
             }
@@ -74,13 +73,13 @@ const Order = () => {
 
             const createdOrder = await OrderService.createOrder(newOrder);
 
-            MaterialService.M.toast({ html: `Order №${createdOrder.order} was created!` });
+            MaterialService.M.toast({ html: `Orden №${createdOrder.order} fue creada!` });
             OrderService.clear();
             setListToOrder(OrderService.list);
+            setPending(false);
             closeModal();
         } catch (error) {
             MaterialService.M.toast({ html: error.message });
-        } finally {
             setPending(false);
         }
     };
@@ -90,8 +89,11 @@ const Order = () => {
     };
 
     const removePosFromOrder = (_id) => {
-        OrderService.remove(_id);
-        setListToOrder(OrderService.list); // Actualiza la lista después de eliminar un elemento
+        setPending(true);
+        OrderService.remove(_id).finally(response => {
+            setPending(false);
+        });
+        setListToOrder(OrderService.list);
     };
 
     return (
@@ -102,13 +104,17 @@ const Order = () => {
                     Completar
                 </button>
             </div>
-
             {
-                optionSelected === ""
-                    ? <OrderCategories setOptionSelected={setOptionSelected} />
-                    : <OrderOptions optionSelected={optionSelected} />
-            }
+                pending ? (
+                    <crm-loader></crm-loader>
+                ) : (<OrderCategories
+                    setOptionSelected={setOptionSelected}
+                    listToOrder={listToOrder}
+                    isRoot={isRoot}
+                    showModal={showModal}
+                />)
 
+            }
             <div ref={modalRef} className="modal modal-fixed-footer">
                 <div className="modal-content">
                     <h4 className="mb1">Tu pedido</h4>

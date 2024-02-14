@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject, tap } from "rxjs";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from "src/enviroments/environment";
 import { UserDetailsInterface } from "../../interfaces/UserDetailsInterface ";
+import { OrderService as AppOrdersService } from "../../../modules/order/service/order.service";
 
 @Injectable({
       providedIn: "root",
@@ -16,6 +17,7 @@ export class AuthService {
 
       constructor(
             private http: HttpClient,
+            private appOrdersService: AppOrdersService,
             private jwtHelper: JwtHelperService,
       ) {
             this.storage = localStorage;
@@ -64,7 +66,7 @@ export class AuthService {
                   this.storage.removeItem('userDetails');
             }
       }
-      
+
       clearToken(): void {
             this.storage.removeItem('authToken');
       }
@@ -111,6 +113,7 @@ export class AuthService {
       }
 
       logout() {
+            this.appOrdersService.clear();
             this.saveToken(null);
             this.currentUserSubject.next(null);
       }

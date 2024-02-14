@@ -60,13 +60,11 @@ function MailingSchemaForm() {
     }
 
     const removeEmailSchema = () => {
-        console.log('removeEmailSchema function called');
         const decision = window.confirm(`¿Estás seguro de que deseas eliminar el esquema de correo electrónico ${emailSchema.name}?`);
 
         if (decision && id) {
             EmailSchemasService.deleteEmailSchema(id)
                 .then(() => {
-                    console.log('llegó')
                     navigate("/" + routerPathsEnum.MAILING)
                 })
                 .catch((error) => {
@@ -88,7 +86,6 @@ function MailingSchemaForm() {
 
         try {
             if (isNew) {
-                console.log('new');
                 EmailSchemasService.createEmailSchema(sendForm).then(response => {
                     navigate("/" + routerPathsEnum.MAILING + "/" + response._id);
                 })

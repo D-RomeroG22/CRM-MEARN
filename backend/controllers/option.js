@@ -50,12 +50,12 @@ module.exports.update = async function (req, res) {
 
 module.exports.remove = async function (req, res) {
     try {
-
-        await Option.remove({
+        
+        const response =  await Option.findOneAndDelete({
             _id: req.params.id
         })
 
-        res.status(200).json({message: 'Позиция была удалена'})
+        res.status(200).json(response)
 
     } catch (e) {
         errorHandler(res, e)
