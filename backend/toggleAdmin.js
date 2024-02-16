@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const User = require("./models/User");
 const Admin = require("./models/Admin");
 const readline = require("readline");
+require("dotenv").config();
 
 const cors = require('cors');
 
@@ -15,9 +16,11 @@ const rl = readline.createInterface({
 
 mongoose.connect(
   process.env.NODE_ENV === "production"
-    ? keys.mongoURI
-    : "mongodb://mongodb:27017/crm-coffee", { useUnifiedTopology: true, useNewUrlParser: true, serverSelectionTimeoutMS: 5000, dbName: 'crm-coffee' }
-);
+    ? process.env.MONGO_URI
+    : "mongodb://mongodb:27017/crm-coffee", { useUnifiedTopology: true, useNewUrlParser: true, serverSelectionTimeoutMS: 5000}
+)
+.then(()=>console.log("Mongo connected",mongoose.connection))
+.catch((err)=> console.error("Error de conección",mongoose.connection));
 
 const toggleAdminStatus = async (email) => {
   try {

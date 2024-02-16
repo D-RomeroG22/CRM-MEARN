@@ -1,6 +1,3 @@
-/**
- * Backend realizado por: Jhusef Alfonso López Parra
- */
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
@@ -16,6 +13,8 @@ const {
 } = require("./middleware/authentication");
 
 const app = express();
+
+// app.use(cors());
 
 const keys = require("./config/keys");
 const authRoutes = require("./routes/auth");
@@ -33,7 +32,7 @@ mongoose
   .connect(
     process.env.NODE_ENV === "production"
       ? keys.mongoURI
-      : "mongodb://localhost:27019/crm-coffee", { useNewUrlParser: true, useUnifiedTopology:true, serverSelectionTimeoutMS: 5000, dbName: 'crm-coffee' }
+      : "mongodb://localhost:27019/crm-coffee", { useNewUrlParser: true, useUnifiedTopology:true, serverSelectionTimeoutMS: 5000}
   )
   .then(() => console.info("MongoDB connected."))
   .catch((error) => console.error("MongoDB connection error:", error));
@@ -47,7 +46,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(",")
   : [];
-app.use(cors({ origin: [...allowedOrigins, "http://localhost:3000", "http://localhost:4200", "https://coffee-mean.netlify.app", "https://coffee-mern.netlify.app" ],
+app.use(cors({ origin: [...allowedOrigins, "http://localhost:3000", "http://localhost:4200" ],
 methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 credentials: true, }));
 
