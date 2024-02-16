@@ -7,7 +7,7 @@ import { OrderInterface, OptionWithQuantityInterface } from 'src/app/shared/inte
       providedIn: 'root'
 })
 export class OrderService {
-      private baseUrl = 'http://localhost:5000/api/v1'; 
+      private baseUrl = 'https://crm-backend-atjh.onrender.com/api/v1'; 
       private listOfOptions: OptionWithQuantityInterface[] = [];
       private calculatedPrice: number = 0;
 
