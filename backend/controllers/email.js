@@ -3,7 +3,6 @@ const nodemailer = require('nodemailer');
 const EmailSchema = require("../models/Email");
 const clients = require("../models/Client");
 const errorHandler = require("../utils/errorHandler");
-const path = require("path");
 
 module.exports.getAll = async (req, res) => {
   try {

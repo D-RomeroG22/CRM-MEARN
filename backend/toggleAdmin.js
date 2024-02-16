@@ -1,3 +1,6 @@
+/**
+ * Script realizado por: Jhusef Alfonso López Parra
+ */
 const mongoose = require("mongoose");
 const User = require("./models/User");
 const Admin = require("./models/Admin");

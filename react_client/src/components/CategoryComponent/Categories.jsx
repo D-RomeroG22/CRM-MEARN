@@ -57,7 +57,7 @@ function Categories() {
                                     )}
                                 </>
                             ) : (
-                                <crm-loader></crm-loader>
+                                <LoaderComponent />
                             )}
                         </div>
                     </div>

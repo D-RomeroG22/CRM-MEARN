@@ -18,7 +18,7 @@ passport.use(
             if (user) {
                 done(null, user);
             } else {
-                done(null, false, { message: "Token no coincide con usuario válido." });
+                done(null, false, { message: "Token no coincide con un usuario válido." });
             }
         } catch (error) {
             done(error, false);

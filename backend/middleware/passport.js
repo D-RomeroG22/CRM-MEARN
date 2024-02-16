@@ -22,7 +22,7 @@ module.exports = passport => {
                 if (user) {
                     return done(null, user);
                 } else {
-                    return done(null, false, { message: 'Token no coincide con usuario válido.' });
+                    return done(null, false, { message: 'Token no coincide con un usuario válido.' });
                 }
             } catch (error) {
                 return done(error, false);

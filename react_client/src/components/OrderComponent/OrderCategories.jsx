@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import CategoriesService from '../../api/services/CategoriesService';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import LoaderComponent from '../LoaderComponent';
 
-const OrderCategories = ({ setOptionSelected, listToOrder, isRoot, showModal }) => {
+const OrderCategories = ({ ...props }) => {
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        setLoading(true);
         const fetchData = async () => {
-            setLoading(true);
             CategoriesService.getAllCategories()
                 .then(response => {
                     setCategories(response);
-                    setLoading(false);
                 })
                 .catch(errors => {
                     console.error(errors)
@@ -28,14 +28,13 @@ const OrderCategories = ({ setOptionSelected, listToOrder, isRoot, showModal }) 
     }, []);
 
     return (
-        <div className="frow order-row">
-            {loading ? (
-                <crm-loader></crm-loader>
-            ) : (
+        loading
+            ? (<LoaderComponent />)
+            : (<div className="frow order-row">
                 <div className="main">
                     {categories.length ? (
                         categories.map((category, index) => (
-                            <div key={index} className="card waves-effect pointer" onClick={() => navigate('/order/'+category._id,{props: true})}>
+                            <div key={index} className="card waves-effect pointer" onClick={() => navigate('/order/' + category._id, { props: true })}>
                                 <div className="center">
                                     <img src={category.image} alt="imageSrc" className="responsive-img order-img" />
                                 </div>
@@ -48,8 +47,7 @@ const OrderCategories = ({ setOptionSelected, listToOrder, isRoot, showModal }) 
                         <span className="center">No hay Categorías.</span>
                     )}
                 </div>
-            )}
-        </div>
+            </div>)
     );
 };
 

@@ -83,9 +83,10 @@ export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
                               }
                         );
             } else {
-                  const currentUserId = this.authService.getCurrentUserId();
-                  if (currentUserId) {
-                        this.ordersService.getOrdersByUser(currentUserId, params)
+                  const currentUserId = localStorage.getItem('userDetails');
+                  if (currentUserId && currentUserId !== null) {
+                        const userData = JSON.parse(currentUserId);
+                        this.ordersService.getOrdersByUser(userData._id, params)
                               .pipe(takeUntil(this.isAlive))
                               .subscribe(
                                     (orders: OrderInterface[]) => {

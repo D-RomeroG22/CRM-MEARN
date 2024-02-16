@@ -37,7 +37,7 @@ export class AuthService {
                               });
                         },
                         (error) => {
-                              console.error('Error fetching user details:', error);
+                              console.error('Error obteniendo detalles de usuario:', error);
                               this.currentUserSubject.next(null);
                         }
                   );

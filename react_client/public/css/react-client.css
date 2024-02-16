@@ -1,10 +1,5 @@
 
 /** React **/
-.collection-item-icon i.material-icons:hover {
-    color: #03a9f4 !important;
-    transition: 0.3s color;
-}
-
 .btn {
     background-color: #29b6f6 !important
 }

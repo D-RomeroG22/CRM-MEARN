@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import ConfirmDialog from './ConfirmDialog';
 import { RouterPathsEnum } from '../../api/enums/routerPaths.enum.tsx';
 import EmailSchemasService from '../../api/services/EmailSchemasService.jsx';
 import moment from 'moment';

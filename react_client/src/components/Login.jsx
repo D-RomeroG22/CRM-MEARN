@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import useAuth from "../hooks/useAuth";
 import AuthForm from "./AuthForm";
@@ -9,8 +9,6 @@ import { showToast } from "../utils/showToast";
 const Login = () => {
     const crmAuthForm = useRef();
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
     const [loading, setLoading] = useState(false)
 
     const { setAuth } = useAuth();
@@ -44,8 +42,8 @@ const Login = () => {
                         setErrMsg("");
                         const accessToken = response.token.slice(7);
                         const roles = res.admin ? ["user", "editor", "admin"] : ["user"];
-                        setAuth({ user: formData.email, pwd: formData.password, roles, accessToken });
-                        AuthService.saveToken({token: response.token, userDetails: JSON.stringify(res) });
+                        setAuth({ user: res, roles, accessToken });
+                        AuthService.saveToken({token: response.token, userDetails: JSON.stringify(res), roles: JSON.stringify(roles) });
                         setFormData({
                             name: "",
                             surname: "",

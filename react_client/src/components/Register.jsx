@@ -39,7 +39,7 @@ const Register = () => {
     const isPasswordValid = PWD_REGEX.test(formData.password);
 
     if (!isEmailValid || !isPasswordValid) {
-      showToast({msg: "Invalid Entry", isErr: true})
+      showToast({msg: "Entrada inválida", isErr: true})
       setLoading(false)
       return;
     }

@@ -1,20 +1,12 @@
 import React, { useRef, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import AuthService from "../api/services/AuthService";
 import { decodeToken } from "react-jwt";
 import AuthForm from "./AuthForm";
-import useAuth from "../hooks/useAuth";
 import MaterialService from "../api/services/MaterialService";
 
 function ProfileComponent() {
     const crmAuthForm = useRef();
-    const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
 
-    const { setAuth } = useAuth();
-
-    const [errMsg, setErrMsg] = useState("");
     const [loader, setLoader] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
@@ -41,13 +33,13 @@ function ProfileComponent() {
             })
             .catch((err) => {
                 if (!err?.response) {
-                    MaterialService.toast("No Server Response");
+                    MaterialService.toast("No hay respuesta del servidor");
                 } else if (err.response?.status === 400) {
-                    MaterialService.toast("Missing Username or Password");
+                    MaterialService.toast("Olvidó su usuario o contraseña");
                 } else if (err.response?.status === 401) {
-                    MaterialService.toast("Unauthorized");
+                    MaterialService.toast("No autorizado");
                 } else {
-                    MaterialService.toast("Login Failed");
+                    MaterialService.toast("Error de Login");
                 }
             })
             .finally(ev => {

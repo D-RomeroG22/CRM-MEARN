@@ -1,3 +1,6 @@
+/**
+ * Backend realizado por: Jhusef Alfonso López Parra
+ */
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
@@ -13,8 +16,6 @@ const {
 } = require("./middleware/authentication");
 
 const app = express();
-
-// app.use(cors());
 
 const keys = require("./config/keys");
 const authRoutes = require("./routes/auth");

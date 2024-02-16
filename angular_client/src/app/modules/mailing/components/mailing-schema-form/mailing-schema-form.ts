@@ -7,7 +7,6 @@ import { MaterialService } from "../../../../shared/classes/material.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmMailDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 import { EmailSchemaInterface } from "src/app/shared/interfaces/email-schema.interface";
-import { MatDatepicker } from "@angular/material/datepicker";
 import { EmailSchemasService } from "src/app/shared/services/email/email.service";
 import * as moment from "moment";
 

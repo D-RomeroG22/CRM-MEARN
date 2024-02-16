@@ -134,7 +134,7 @@ function OptionsForm({ categoryId }) {
 
     const removeOption = async (optionId, event) => {
         event.stopPropagation();
-        const decision = window.confirm('Realmente quieres removerlo?');
+        const decision = window.confirm('Realmente quieres remover la Opción?');
         if (decision) {
             OptionsService.removeOption(optionId)
                 .then(response => {
@@ -213,7 +213,6 @@ function OptionsForm({ categoryId }) {
                                 value={addOptionForm.name}
                                 onChange={handleChange}
                                 onBlur={handleChange}
-                                // onChange={(e) => setAddOptionForm({ ...addOptionForm, name: e.target.value })}
                                 isInvalid={error.name && touched.name}
                                 className={error.name && touched.name ? 'invalid' : ''}
                             />
@@ -236,7 +235,6 @@ function OptionsForm({ categoryId }) {
                                 onChange={handleChange}
                                 onBlur={handleChange}
                                 value={addOptionForm.cost}
-                                // onChange={(e) => setAddOptionForm({ ...addOptionForm, cost: e.target.value })}
                                 isInvalid={error.cost && touched.cost}
                                 className={error.cost && touched.cost ? 'invalid' : ''}
                             />

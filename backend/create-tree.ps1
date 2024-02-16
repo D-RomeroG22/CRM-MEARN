@@ -1,5 +1,5 @@
 $excludedFolders = @('node_modules', 'dist', '.git', 'coverage', 'build');
-$rootPath = 'C:\Users\Dxrk\Documents\Proyectos\crm-coffee-mearn'
+$rootPath = 'C:\Users\~\Documents\Proyectos\crm-coffee-mearn'
 
 function Get-Tree {
     param (
@@ -16,4 +16,4 @@ function Get-Tree {
     }
 }
 
-Get-Tree $rootPath | Out-File 'C:\Users\Dxrk\Documents\Proyectos\crm-coffee-mearn\tree.txt'
+Get-Tree $rootPath | Out-File 'C:\Users\~\Documents\Proyectos\crm-coffee-mearn\tree.txt'

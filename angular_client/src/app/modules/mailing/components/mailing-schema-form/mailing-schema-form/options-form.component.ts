@@ -164,7 +164,7 @@ export class OptionsFormComponent
 
       removeOption(_id: string, event: Event) {
             event.stopPropagation();
-            const decision = window.confirm("Do you really want to remove it?");
+            const decision = window.confirm("Realmente quieres remover esta Opción?");
             if (decision) {
                   this.optionsService
                         .removeOption(_id)

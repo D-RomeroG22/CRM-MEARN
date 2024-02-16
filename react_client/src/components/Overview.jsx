@@ -7,8 +7,9 @@ import moment from 'moment';
 function OverviewComponent() {
     const [overview, setOverview] = useState(null);
     const [tapTarget, setTapTarget] = useState(null);
-    const [yesterday, setYesterday] = useState(new Date());
     const tapTargetRef = useRef(null);
+
+    const yesterday = new Date()
 
     const openTabTarget = () => {
         tapTarget?.open();

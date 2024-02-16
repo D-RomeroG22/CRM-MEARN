@@ -1,7 +1,9 @@
+/**
+ * Cliente React realizado por: Jhusef Alfonso López Parra
+ */
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Layout from "./components/Layout";
-import Missing from "./components/Missing";
 import RequireAuth from "./components/RequireAuth";
 import { Routes, Route } from "react-router-dom";
 import AuthBlock from "./components/AuthBlock";
@@ -15,7 +17,6 @@ import MailingSchemas from "./components/MailingSchemasComponent/MailingSchemas"
 import MailingSchemaForm from "./components/MailingSchemasComponent/MailingSchemaForm";
 import CategoryForm from "./components/CategoryComponent/CategoryForm";
 import Order from "./components/OrderComponent/Order";
-import OrderOptions from "./components/OrderComponent/OrderOptions";
 
 const ROLES = {
   User: "user",
@@ -29,11 +30,11 @@ const PUBLIC = [
     component: <Login />
   },
   {
-    path: 'login',
+    path: '/login',
     component: <Login />
   },
   {
-    path: 'register',
+    path: '/register',
     component: <Register />
   }
 ];
@@ -41,46 +42,46 @@ const PUBLIC = [
 const PROTECT = [
   {
     path: '/',
-    component: localStorage.getItem('authToken') ? <Overview /> : <Login />
-  },
-  {
-    path: 'overview',
     component: <Overview />
   },
   {
-    path: 'analytics',
+    path: '/overview',
+    component: <Overview />
+  },
+  {
+    path: '/analytics',
     component: <Analytics />
   },
   {
-    path: 'emails',
+    path: '/emails',
     component: <MailingSchemas />
   },
   {
-    path: 'emails/:id',
+    path: '/emails/:id',
     component: <MailingSchemaForm />
   },
   {
-    path: 'history',
+    path: '/history',
     component: <History />
   },
   {
-    path: 'order',
+    path: '/order',
     component: <Order />
   },
   {
-    path: 'order/:id',
-    component: <OrderOptions/>
+    path: '/order/:id',
+    component: <Order />
   },
   {
-    path: 'categories',
+    path: '/categories',
     component: <Categories />
   },
   {
-    path: 'categories/:id',
+    path: '/categories/:id',
     component: <CategoryForm />
   },
   {
-    path: 'profile',
+    path: '/profile',
     component: <Profile />
   }
 ];
@@ -89,44 +90,15 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* Rutas públicas */}
-        {
-          PUBLIC.map((p,i) => {
-            return <Route key={i} path={p.path} element={<AuthBlock children={p.component} />} />
-          })
-        }
-        {/* Rutas protegidas */}
-        {
-          PROTECT.map ((p,i) => {
-            return (
-              <Route
-                key={i}
-                element={
-                  <RequireAuth
-                    allowedRoles={
-                      [
-                        ROLES.User,
-                        ROLES.Editor,
-                        ROLES.Admin
-                      ]
-                    }
-                />}
-                children={
-                  <Route
-                    path={p.path}
-                    element={
-                      <NaviComponent
-                        children={p.component}
-                      />
-                    }
-                  />
-                }
-              />
-            )
-          })
-        }
-        {/* Manejo de errores */}
-        <Route path="*" element={<Missing />} />
+        {PUBLIC.map((p, i) => (
+          <Route key={i} path={p.path} element={<AuthBlock children={p.component} />} />
+        ))}
+        {PROTECT.map((p, i) => (
+          <Route key={i} element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor, ROLES.Admin]} />} >
+            <Route path={p.path} element={<NaviComponent children={p.component} />} />
+          </Route>
+        ))}
+        <Route path="*" element={<Layout />} />
       </Route>
     </Routes>
   );

@@ -1,6 +1,5 @@
 const Order = require("../models/Order");
 const Client = require("../models/Client");
-const User = require("../models/User");
 const errorHandler = require("../utils/errorHandler");
 
 module.exports.getAll = async function (req, res) {
