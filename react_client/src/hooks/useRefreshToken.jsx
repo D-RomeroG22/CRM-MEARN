@@ -13,7 +13,7 @@ const useRefreshToken = () => {
             }));
             return response.data.accessToken;
         } catch (error) {
-            console.error("Error refreshing token:", error);
+            console.error("Error recargando el Token:", error);
             throw error;
         }
     };

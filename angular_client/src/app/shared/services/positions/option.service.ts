@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "../../../../enviroments/environment";
-import { MessageInterface } from "../../interfaces/message.interface";
 import { OptionInterface } from "../../interfaces/option.interface";
 import { EmailSchemaInterface } from "../../interfaces/email-schema.interface";
 

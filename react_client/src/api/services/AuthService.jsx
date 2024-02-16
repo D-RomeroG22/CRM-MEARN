@@ -39,15 +39,17 @@ const AuthService = () => {
       });
   }
 
-  const saveToken = ({token, userDetails}) => {
+  const saveToken = ({ token, userDetails, roles }) => {
     if (token) {
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("userDetails", userDetails);
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userDetails", userDetails);
+      localStorage.setItem("roles", roles);
     } else {
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("userDetails");
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userDetails");
+      localStorage.removeItem("roles");
     }
-}
+  }
 
   const isAuthenticated = () => {
     const token = localStorage.getItem("authToken");
@@ -57,6 +59,7 @@ const AuthService = () => {
   const logout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userDetails");
+    localStorage.removeItem("roles");
   };
 
   const getCurrentUser = () => {
@@ -77,7 +80,7 @@ const AuthService = () => {
         throw error;
       });
   }
-  
+
   return {
     getUserDetails,
     login,

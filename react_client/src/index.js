@@ -1,3 +1,6 @@
+/**
+ * Cliente React realizado por: Jhusef Alfonso López Parra
+ */
 import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";

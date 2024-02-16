@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { RouterPathsEnum } from '../../api/enums/routerPaths.enum.tsx';
 import CategoriesService from '../../api/services/CategoriesService';
-import { useNavigate } from 'react-router-dom'; // Utiliza useNavigate en lugar de useHistory
+import { useNavigate } from 'react-router-dom';
+import LoaderComponent from '../LoaderComponent';
 
-const OrderCategories = ({ setOptionSelected }) => {
+const OrderCategories = ({ ...props }) => {
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate(); // Utiliza useNavigate
+    const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
+        setLoading(true);
         const fetchData = async () => {
             CategoriesService.getAllCategories()
                 .then(response => {
                     setCategories(response);
-                    setLoading(false);
                 })
                 .catch(errors => {
                     console.error(errors)
@@ -27,14 +28,13 @@ const OrderCategories = ({ setOptionSelected }) => {
     }, []);
 
     return (
-        <div className="frow order-row">
-            {loading ? (
-                <crm-loader></crm-loader>
-            ) : (
+        loading
+            ? (<LoaderComponent />)
+            : (<div className="frow order-row">
                 <div className="main">
                     {categories.length ? (
                         categories.map((category, index) => (
-                            <div key={index} className="card waves-effect pointer" onClick={() => setOptionSelected(category._id)}>
+                            <div key={index} className="card waves-effect pointer" onClick={() => navigate('/order/' + category._id, { props: true })}>
                                 <div className="center">
                                     <img src={category.image} alt="imageSrc" className="responsive-img order-img" />
                                 </div>
@@ -44,11 +44,10 @@ const OrderCategories = ({ setOptionSelected }) => {
                             </div>
                         ))
                     ) : (
-                        <span className="center">You haven't any categories.</span>
+                        <span className="center">No hay Categorías.</span>
                     )}
                 </div>
-            )}
-        </div>
+            </div>)
     );
 };
 

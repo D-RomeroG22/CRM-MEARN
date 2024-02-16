@@ -7,7 +7,7 @@ import {
       ViewChild,
 } from "@angular/core";
 import { RouterPathsEnum } from "../../../shared/enums/routerPaths.enum";
-import { NavigationEnd, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { EMPTY, Subject, catchError, of, switchMap, takeUntil } from "rxjs";
 import {
       MaterialInterface,
@@ -48,10 +48,9 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
             this.router.events
                   .pipe(takeUntil(this.isAlive))
                   .subscribe(event => {
-                        if (event instanceof NavigationEnd)
-                              this.isRoot =
+                        this.isRoot =
                                     this.router.url ===
-                                    `/${this.routesPaths.ORDER}`;
+                                          `/${this.routesPaths.ORDER}`;
                   });
             this.listToOrder = this.appOrdersService.list;
       }
@@ -81,7 +80,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewInit {
                               return EMPTY;
                         }
                         return of(currentUser);
-                        
+
                   }),
                   catchError((error) => {
                         this.materialService.toast('No se pueden obtener los detalles del usuario.');

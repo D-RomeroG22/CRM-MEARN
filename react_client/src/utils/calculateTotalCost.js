@@ -1,5 +1,3 @@
-import React from 'react'
-
 const calculateTotalCost = (historyItem) => {
     return historyItem.list.reduce((acc, el) => {
         return (acc += el.quantity ? el.cost * el.quantity : el.cost);

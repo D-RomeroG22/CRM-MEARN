@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const authMiddleware = require('./middleware/authMiddleware');
 const morgan = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
@@ -9,12 +8,6 @@ const path = require('path');
 const app = express();
 
 const keys = require('./config/keys');
-const authRoutes = require('./routes/auth');
-const analyticsRoutes = require('./routes/analytics');
-const categoryRoutes = require('./routes/category');
-const orderRoutes = require('./routes/order');
-const optionRoutes = require('./routes/option');
-const clientRoutes = require('./routes/client');
 
 const helmet = require('helmet');
 app.use(helmet());

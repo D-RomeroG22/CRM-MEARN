@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-confirm-dialog',
+  selector: 'app-confirm-category-dialog',
   template: `
     <h1 mat-dialog-title>Confirma</h1>
     <div mat-dialog-content>
@@ -13,4 +13,4 @@ import { Component } from '@angular/core';
     </div>
   `,
 })
-export class ConfirmDialogComponent { }
+export class ConfirmCategoryDialogComponent { }

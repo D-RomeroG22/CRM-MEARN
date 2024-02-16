@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import ConfirmDialog from './ConfirmDialog';
 import { RouterPathsEnum } from '../../api/enums/routerPaths.enum.tsx';
 import EmailSchemasService from '../../api/services/EmailSchemasService.jsx';
 import moment from 'moment';
@@ -60,13 +59,11 @@ function MailingSchemaForm() {
     }
 
     const removeEmailSchema = () => {
-        console.log('removeEmailSchema function called');
         const decision = window.confirm(`¿Estás seguro de que deseas eliminar el esquema de correo electrónico ${emailSchema.name}?`);
 
         if (decision && id) {
             EmailSchemasService.deleteEmailSchema(id)
                 .then(() => {
-                    console.log('llegó')
                     navigate("/" + routerPathsEnum.MAILING)
                 })
                 .catch((error) => {
@@ -88,7 +85,6 @@ function MailingSchemaForm() {
 
         try {
             if (isNew) {
-                console.log('new');
                 EmailSchemasService.createEmailSchema(sendForm).then(response => {
                     navigate("/" + routerPathsEnum.MAILING + "/" + response._id);
                 })

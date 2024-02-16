@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, Modal, Form } from 'react-bootstrap';
 import OptionsService from '../../api/services/OptionsService';
 import LoaderComponent from '../LoaderComponent.jsx';
@@ -22,7 +21,6 @@ function OptionsForm({ categoryId }) {
     });
     const [loading, setLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchData();
@@ -31,10 +29,7 @@ function OptionsForm({ categoryId }) {
     const fetchData = async () => {
         setLoading(true);
         try {
-            console.log(categoryId)
-            const optionsData = await OptionsService.getAllCategories(categoryId);
-            console.log(optionsData)
-
+            const optionsData = await OptionsService.getAllOptions(categoryId);
             setOptions(optionsData);
         } catch (error) {
             console.error(error);
@@ -115,16 +110,21 @@ function OptionsForm({ categoryId }) {
                     category: categoryId,
                     _id: optionId,
                     ...addOptionForm
+                }).then(response => {
+                    initializeForm();
+                    setModalVisible(false);
+                    fetchData();
                 });
             } else {
                 OptionsService.createOption({
                     ...addOptionForm,
                     category: categoryId,
+                }).then(response => {
+                    initializeForm();
+                    setModalVisible(false);
+                    fetchData();
                 });
             }
-            initializeForm();
-            setModalVisible(false);
-            fetchData();
         } catch (error) {
             console.error(error);
         } finally {
@@ -134,15 +134,15 @@ function OptionsForm({ categoryId }) {
 
     const removeOption = async (optionId, event) => {
         event.stopPropagation();
-        const decision = window.confirm('Do you really want to remove it?');
+        const decision = window.confirm('Realmente quieres remover la Opción?');
         if (decision) {
-            try {
-                await OptionsService.removeOption(optionId);
-                navigate('/categories/'+categoryId);
-                initializeForm();
-            } catch (error) {
-                console.error(error);
-            }
+            OptionsService.removeOption(optionId)
+                .then(response => {
+                    fetchData();
+                    initializeForm();
+                }).catch(errors => {
+                    console.error(errors);
+                })
         }
     };
 
@@ -163,16 +163,16 @@ function OptionsForm({ categoryId }) {
                     {loading ? (
                         <LoaderComponent />
                     ) : options.length ? (
-                        <div className="collection"> {console.log(options)}
+                        <div className="collection">
                             {options.map((option) => (
                                 <div
                                     key={option._id}
                                     onClick={() => selectOption(option)}
                                     className="collection-item collection-item-icon"
-                                >{console.log(option)}
+                                >
                                     <span>
                                         {option.name}
-                                        <strong>{`${option.cost} $`}</strong>
+                                        <strong>{` ${option.cost} $`}</strong>
                                     </span>
                                     <span onClick={(event) => removeOption(option._id, event)}>
                                         <i className="material-icons">delete</i>
@@ -198,7 +198,7 @@ function OptionsForm({ categoryId }) {
                 }}>
                     <Modal.Header>
                         <Modal.Title>
-                            <h4 className="mb1">Agregar opción</h4>
+                            <h4 className="mb1">{optionId ? "Editar" : "Agregar"} opción</h4>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -213,7 +213,6 @@ function OptionsForm({ categoryId }) {
                                 value={addOptionForm.name}
                                 onChange={handleChange}
                                 onBlur={handleChange}
-                                // onChange={(e) => setAddOptionForm({ ...addOptionForm, name: e.target.value })}
                                 isInvalid={error.name && touched.name}
                                 className={error.name && touched.name ? 'invalid' : ''}
                             />
@@ -236,7 +235,6 @@ function OptionsForm({ categoryId }) {
                                 onChange={handleChange}
                                 onBlur={handleChange}
                                 value={addOptionForm.cost}
-                                // onChange={(e) => setAddOptionForm({ ...addOptionForm, cost: e.target.value })}
                                 isInvalid={error.cost && touched.cost}
                                 className={error.cost && touched.cost ? 'invalid' : ''}
                             />
@@ -252,7 +250,12 @@ function OptionsForm({ categoryId }) {
                         <button onClick={hideModal} className="modal-action waves-effect waves-black btn-flat">
                             Cancelar
                         </button>
-                        <button onClick={submitOption} className={(!touched.name || !touched.cost || error.name || error.cost) ? 'modal-action waves-effect btn disabled' : 'modal-action waves-effect btn'}>
+                        <button onClick={submitOption} className={(
+                            'modal-action waves-effect btn' + (
+                                (!addOptionForm.name || !addOptionForm.cost || error.name || error.cost)
+                                    ? ' disabled'
+                                    : ''
+                            ))}>
                             Guardar
                         </button>
                     </Modal.Footer>

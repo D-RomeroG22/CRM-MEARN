@@ -5,6 +5,7 @@ import MaterialService from '../api/services/MaterialService';
 import { RouterPathsEnum } from '../api/enums/routerPaths.enum.tsx';
 import AuthService from '../api/services/AuthService';
 import { decodeToken } from 'react-jwt';
+import OrderService from '../api/services/OrderService.jsx';
 
 const NaviComponent = ({ children }) => {
     const routerPathsEnum = RouterPathsEnum;
@@ -51,6 +52,7 @@ const NaviComponent = ({ children }) => {
     }, [floatingRef]);
 
     const logout = () => {
+        OrderService.clear();
         AuthService.logout();
         navigate(routerPathsEnum.LOGIN);
     };
@@ -100,7 +102,7 @@ const NaviComponent = ({ children }) => {
             </ul>
             {children}
             <div className="fixed-action-btn" ref={floatingRef}>
-                <Link className="btn-floating btn-large red">
+                <Link className="btn-floating btn-large" style={{backgroundColor: "#919D9C"}}>
                     <i className="large material-icons">coffee</i>
                 </Link>
                 <ul>
@@ -122,12 +124,6 @@ const NaviComponent = ({ children }) => {
                     </li>
                 </ul>
             </div>
-            <a
-                id="menu"
-                className="waves-effect waves-light btn btn-floating"
-            >
-                <i className="material-icons">info</i>
-            </a>
         </>
     );
 };

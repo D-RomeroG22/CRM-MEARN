@@ -6,10 +6,6 @@ import {
       OnInit,
       ViewChild,
 } from "@angular/core";
-import {
-      MaterialInterface,
-      MaterialService,
-} from "../../../shared/classes/material.service";
 import { OrdersService as HttpOrdersService, OrdersService } from "../../../shared/services/orders/orders.service";
 import { Subject, takeUntil } from "rxjs";
 import { environment } from "../../../../enviroments/environment";
@@ -32,7 +28,6 @@ export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
       reloadingFlag = false;
       noMoreFlag = false;
       constructor(
-            private materialService: MaterialService,
             private ordersService: OrdersService,
             private authService: AuthService,
       ) { }
@@ -50,7 +45,7 @@ export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
 
       loadMore() {
             this.loadingFlag = true;
-            this.offset += environment.STEP;
+            this.limit += environment.STEP;
             this.fetch();
       }
 
@@ -67,7 +62,7 @@ export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
             this.fetch();
       }
 
-      private fetch() {
+      fetch(): void {
             const params: { offset: number; limit: number } = {
                   offset: this.offset,
                   limit: this.limit,
@@ -78,34 +73,36 @@ export class HistoryComponent implements AfterViewInit, OnInit, OnDestroy {
                         .pipe(takeUntil(this.isAlive))
                         .subscribe(
                               (orders: OrderInterface[]) => {
-                                    this.historyList = [...this.historyList, ...orders];
+                                    this.historyList = orders;
                                     this.loadingFlag = false;
                                     this.reloadingFlag = false;
                                     this.noMoreFlag = orders.length < this.limit;
                               },
                               (error: Error) => {
-                                    console.error('Error fetching orders:', error);
+                                    console.error('Error obteniendo las Órdenes:', error);
                               }
                         );
             } else {
-                  const currentUserId = this.authService.getCurrentUserId();
-                  if (currentUserId) {
-                        this.ordersService.getOrdersByUser(currentUserId, params)
+                  const currentUserId = localStorage.getItem('userDetails');
+                  if (currentUserId && currentUserId !== null) {
+                        const userData = JSON.parse(currentUserId);
+                        this.ordersService.getOrdersByUser(userData._id, params)
                               .pipe(takeUntil(this.isAlive))
                               .subscribe(
                                     (orders: OrderInterface[]) => {
-                                          this.historyList = [...this.historyList, ...orders];
+                                          this.historyList = orders;
                                           this.loadingFlag = false;
                                           this.reloadingFlag = false;
                                           this.noMoreFlag = orders.length < this.limit;
                                     },
-                                    (error: Error) => { 
-                                          console.error('Error fetching orders:', error);
+                                    (error: Error) => {
+                                          console.error('Error obteniendo las Órdenes:', error);
                                     }
                               );
                   } else {
-                        console.error('Error fetching orders: Current user ID is undefined.');
+                        console.error('Error obteniendo las Órdenes: ID del usuario es undefined.');
                   }
             }
       }
+
 }

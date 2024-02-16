@@ -1,6 +1,6 @@
 {
   "name": "crm-coffee-mearn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "lockfileVersion": 3,
   "requires": true,
@@ -22,7 +22,7 @@
     "mongoose": "^7.0.0",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.3",
-    "nodemailer": "^6.9.8",
+    "nodemailer": "^6.9.9",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "swagger-ui-express": "^5.0.0"

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { delay, Observable } from 'rxjs';
-import EmailSchemasService from '../../api/services/EmailSchemasService';
 import { RouterPathsEnum } from '../../api/enums/routerPaths.enum.tsx';
-import { environment } from '../../enviroments/environment.js';
 import { useNavigate, Link } from 'react-router-dom';
 import LoaderComponent from '../LoaderComponent.jsx';
 import CategoriesService from '../../api/services/CategoriesService.jsx';
@@ -60,7 +57,7 @@ function Categories() {
                                     )}
                                 </>
                             ) : (
-                                <crm-loader></crm-loader>
+                                <LoaderComponent />
                             )}
                         </div>
                     </div>

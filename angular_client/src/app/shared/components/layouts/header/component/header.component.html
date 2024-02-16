@@ -2,11 +2,9 @@
       <div class="nav-wrapper red darken-1">
         <a [routerLink]="['/']" class="brand-logo">CRM MEAN</a>
         <ul id="nav-mobile" class="right">
-          <!-- Mostrar solo si no estamos en la ruta de login -->
           <li [routerLinkActive]="'active'" *ngIf="!isRouteActive('/login')">
             <a [routerLink]="['/login']">Iniciar</a>
           </li>
-          <!-- Mostrar solo si no estamos en la ruta de register -->
           <li [routerLinkActive]="'active'" *ngIf="!isRouteActive('/register')">
             <a [routerLink]="['/register']">Registrarse</a>
           </li>

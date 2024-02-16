@@ -1,8 +1,8 @@
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 const EmailSchema = require("../models/Email");
+const clients = require("../models/Client");
 const errorHandler = require("../utils/errorHandler");
-const path = require("path");
 
 module.exports.getAll = async (req, res) => {
   try {
@@ -84,14 +84,14 @@ module.exports.sendEmailToAll = async (req, res) => {
     const emailSchemas = await EmailSchema.find({ sendDate: currentDate });
 
     for (const emailSchema of emailSchemas) {
-      const clients = await Client.find({ email: emailSchema.recipientEmailField });
+      const arrayMails = await clients.find({});
 
-      for (const client of clients) {
+      for (const usr of arrayMails) {
         const mailOptions = {
           from: 'admin@crm-coffee.com',
-          to: client.email,
+          to: usr.email,
           subject: emailSchema.subject,
-          html: emailSchema.content,
+          html: emailSchema.templateUrl,
         };
 
         await transporter.sendMail(mailOptions);

@@ -67,7 +67,7 @@ module.exports.analytics = async function (req, res) {
 
 module.exports.checkService = async function (req, res) {
     try {
-    res.status(200).json({ serviceStatus: "I'm live!" });
+    res.status(200).json({ serviceStatus: "Corriendo!" });
     } catch (e) {
     errorHandler(res, e);
     }

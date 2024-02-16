@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { delay, Observable } from 'rxjs';
 import EmailSchemasService from '../../api/services/EmailSchemasService';
 import { RouterPathsEnum } from '../../api/enums/routerPaths.enum.tsx';
 import { environment } from '../../enviroments/environment.js';
@@ -63,7 +62,7 @@ function MailingSchemas() {
                                     )}
                                 </>
                             ) : (
-                                <crm-loader></crm-loader>
+                                <LoaderComponent />
                             )}
                         </div>
                     </div>

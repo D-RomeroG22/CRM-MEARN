@@ -17,6 +17,6 @@ mongoose.connect(process.env.NODE_ENV === "production"
     process.exit();
   })
   .catch(err => {
-    console.error('Database seeding error:', err);
+    console.error('Error en la base de datos:', err);
     process.exit(1);
   });

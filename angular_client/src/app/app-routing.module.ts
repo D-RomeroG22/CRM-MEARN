@@ -1,3 +1,6 @@
+/**
+ * Cliente Angular realizado por: Jhusef Alfonso López Parra
+ */
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HeaderComponent } from "./shared/components/layouts/header/component/header.component";

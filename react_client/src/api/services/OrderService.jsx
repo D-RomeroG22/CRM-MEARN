@@ -49,7 +49,7 @@ const OrderService = {
     this.price = 0;
   },
 
-  createOrder: async ({ newOrder }) => {
+  createOrder: async (newOrder) => {
     try {
       const response = await api.private.post(`${environment.urls.order}`, newOrder);
       return response.data;
@@ -77,6 +77,12 @@ const OrderService = {
       console.error(error);
       throw error;
     }
+  },
+
+  
+  finishOrder: async (orderId) => {
+    await api.private.patch(`${environment.urls.order}/${orderId}`, { status: 'Finished' })
+      .then(response => response);
   },
 
   calculatePrice() {
