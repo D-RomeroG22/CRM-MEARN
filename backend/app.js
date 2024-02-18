@@ -46,7 +46,16 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(" ")
   : [];
-app.options('*', cors({ origin: [...allowedOrigins, "http://localhost:3000", "http://localhost:4200" ]}));
+app.options('*', cors({ origin: [...allowedOrigins, "http://localhost:3000", "http://localhost:4200" ],
+credentials: true}));
+
+app.options('*',(req,res)=>{
+  const origin= req.header('Origin');
+  if(allowedOrigins.includes(origin) || !origin){
+    res.header('Access-Control-Allow-Origin',origin);
+    res.header('Access-Control-Allow-Methods','GET, POST, PATH, DELETE, PUT, HEAD');
+  }
+});
 
 app.use(cors({ origin: [...allowedOrigins, "http://localhost:3000", "http://localhost:4200" ],
 methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
