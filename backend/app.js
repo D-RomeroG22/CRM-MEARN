@@ -47,7 +47,11 @@ const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(" ")
   : [];
 app.options('*', cors());
-app.use(cors());
+
+app.use(cors({ origin: [...allowedOrigins, "http://localhost:3000", "http://localhost:4200" ],
+methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+credentials: true, }));
+
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/analytics", isAuthenticated, analyticsRoutes);
