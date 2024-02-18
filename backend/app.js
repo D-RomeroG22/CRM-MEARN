@@ -46,12 +46,8 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(" ")
   : [];
-app.options('*', cors({ origin: [...allowedOrigins, "http://localhost:3000", "http://localhost:4200" ]}));
-
-app.use(cors({ origin: [...allowedOrigins, "http://localhost:3000", "http://localhost:4200" ],
-methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-credentials: true, }));
-
+app.options('*', cors());
+app.use(cors());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/analytics", isAuthenticated, analyticsRoutes);
